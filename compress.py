@@ -18,23 +18,40 @@ import torch.nn.utils.prune as prune
 
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    random_seed = 52
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--img-path', type=str, required=True)
+    parser.add_argument('--save-path', type=str, required=True)
+    parser.add_argument('--pruning-rates-list', type=str, required=True)
+    parser.add_argument('--epochs-per-prune-list', type=str, required=True)
+    parser.add_argument('--model-arch', type=str, required=True)
+    parser.add_argument('--arch-params', type=str, required=True)
 
-  random_seed = 52
-  img_path = "/content/drive/MyDrive/working_with_COIN/our_repo_pruning/kodak-dataset/kodim01.png"
-  save_path = "/content/drive/MyDrive/working_with_COIN/our_repo_pruning/exec_logs"
-  prunning_rates_list = [0.0, 0.3, 0.2/0.7, 0.4, 0.1/0.3] # corresponds to 0% 30 %, 50 %, 70 % and 90 % of the original model (respectively).
-  epochs_per_prune_list = [50, 10, 5, 3, 1]
-  model_arch = "5_20"
-  arch_params = [5, 20]
-  torch.manual_seed(random_seed)
-  torch.cuda.manual_seed_all(random_seed)
+    original_args = vars(parser.parse_args())
+    args = {**original_args}
 
-  img_tensor = utils_ours.load_img_to_tensor(img_path=img_path)
+    list_params = ['pruning_rates_list', 'epochs_per_prune_list', 'arch_params']
+    for list_param in list_params:
+        values = [eval(value) for value in original_args[list_param].split(',')]
+        args[list_param] = values
 
-  
-  pruning_utils.single_img_experiment(save_path=save_path, img=img_tensor, model_arch=model_arch, arch_params=arch_params, prunning_rates=prunning_rates_list, epochs_per_prune=epochs_per_prune_list)
+    # Do something with the arguments
+
+    torch.manual_seed(random_seed)
+    torch.cuda.manual_seed_all(random_seed)
+    
+    img_tensor = utils_ours.load_img_to_tensor(img_path=args['img_path'])
+
+    pruning_utils.single_img_experiment(
+      save_path = args['save_path'], 
+      img = img_tensor, 
+      model_arch = args['model_arch'], 
+      arch_params = args['arch_params'], 
+      prunning_rates = args['pruning_rates_list'], 
+      epochs_per_prune = args['epochs_per_prune_list']
+    )
 
 
 
