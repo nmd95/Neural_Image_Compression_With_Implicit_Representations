@@ -6,7 +6,7 @@ Full project report is in *add path to pdf once finished*
 ## Usage
 In order to run ```compress.py``` you should run the following code:
 ```
-python copmress.py --img-path img_path --save-path output_path --pruning-rates-list rates_list --epochs-per-prune-list epochs_list --num-layers number_of_layers --layer-width layer_width
+python compress.py --img-path img_path --save-path output_path --pruning-rates-list rates_list --epochs-per-prune-list epochs_list --num-layers number_of_layers --layer-width layer_width
 ```
 Where: 
 
