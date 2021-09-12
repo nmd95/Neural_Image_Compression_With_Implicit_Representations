@@ -6,7 +6,7 @@ Full project report is in *add path to pdf once finished*
 ## Usage
 In order to run ```compress.py``` you should run the following code:
 ```
-python copmress.py --img-path img_path --save-path output_path --pruning-rates-list rates_list --epochs-per-prune-list epochs_list --model-arch model_architecture --arch-params arch_params_list
+python copmress.py --img-path img_path --save-path output_path --pruning-rates-list rates_list --epochs-per-prune-list epochs_list --num-layers number_of_layers --layer-width layer_width
 ```
 Where: 
 
@@ -16,9 +16,8 @@ Where:
 write: 
 ```--pruning-rates-list 0.2,0.3```
 * ```epochs-per-prune-list``` is the number of epochs you wish to train before every pruning. i.e. if you wish to prune twice (as mentioned above), and you want to train once for 50 epochs, and after the first pruning to train 20 epochs more, write: ```--epochs-per-prune-list 50,20```
-* ```model-arch``` is the architecture of the FC net. i.e. if you want to train a 10-layered network of depth 40, write: ```--model-arch 10_40```
-* ```arch-params``` is the parameters of the FC net, receives a tuple of (number_of_layers, width of a layer). i.e. if you wrote ```10_40``` as the model_arch parameter, for arch-parames 
-you need to write: ```--arch-params 10,40```
+* ```num-layers``` is the number of layers of the FC
+* ```layer-width``` is the width of each layer
 
 ### Notes: 
 * All parameters required. There are not any default setting. 
